@@ -16,9 +16,9 @@
 %   to see which parameters are exposed by the most recently acquired
 %   datapackage
 
-for i=1:5000
+for i=1:1000
      %get latest ChannelData
-     d = scope.DataSourceScope.LatestDataPackage.GetData(DataSourceType.Viewport, AnalogChannel.ChA);
+     d = scope.DataSourceScope.LatestDataPackage.GetData(ChannelDataSourceScope.Viewport, AnalogChannel.ChA);
 
      %convert .NET array to matlab numbers
      voltages = d.array.double;

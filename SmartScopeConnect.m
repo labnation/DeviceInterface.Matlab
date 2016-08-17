@@ -22,13 +22,20 @@ libPath = 'C:\Program Files (x86)\LabNation\SmartScope\LabNation.DeviceInterface
 if (~exist('asm'))
     asm = NET.addAssembly(libPath);
     import LabNation.DeviceInterface.Devices.*
-    import LabNation.DeviceInterface.DataSources.*
-
-    %connect to the scope
-    devManager = LabNation.DeviceInterface.Devices.DeviceManager([])
-    devManager.Start(false)
-    scope = devManager.device;
+    import LabNation.DeviceInterface.DataSources.*    
 end
+
+%connect to the scope
+devManager = LabNation.DeviceInterface.Devices.DeviceManager()
+devManager.Start(false)
+
+disp ('Searching for SmartScope...')
+while (~devManager.SmartScopeConnected)
+    pause(1);    
+end
+disp ('SmartScope found!')
+
+scope = devManager.MainDevice;
 
 %follow same initialisation script as the ConsoleDemo at https://github.com/labnation/console-demo
 %ideally suited for any signal around 10kHz crossing the 0.5V level
@@ -42,7 +49,6 @@ scope.AcquisitionLength = 0.001;
 scope.TriggerHoldOff = 0.0005;  %relative to first sample
 
 % set optimal configuration for analog scoping
-scope.LogicAnalyserEnabled = false;
 scope.Rolling = false;
 scope.SendOverviewBuffer = false;
 scope.AcquisitionMode = AcquisitionMode.AUTO;
@@ -62,11 +68,12 @@ scope.SetCoupling (AnalogChannel.ChB, Coupling.DC);
 scope.SetProbeDivision (AnalogChannel.ChB, ProbeDivision.X1);
 
 %define trigger
-atv = AnalogTriggerValue();
-atv.channel = AnalogChannel.ChA;
-atv.direction = TriggerDirection.RISING;
-atv.level = 0.5;
-scope.TriggerAnalog = atv;
+tv = TriggerValue();
+tv.source = TriggerSource.Channel;
+tv.channel = AnalogChannel.ChA;
+tv.edge = TriggerEdge.RISING;
+tv.level = 0.5;
+scope.TriggerValue = tv;
 
 %go!
 scope.CommitSettings();
