@@ -17,7 +17,7 @@
 customWave = [0 1 0 1 0 2 0 2 0 4 0 4 0 8 0 8 0 0 0 15 15 15 15 15 0 0 0];
 
 %to be safe: first disable all outputs
-scope.GeneratorToDigitalEnabled = 1;
+scope.GeneratorToDigitalEnabled = 0;
 scope.GeneratorToAnalogEnabled = 0;
 
 %upload custom wave
