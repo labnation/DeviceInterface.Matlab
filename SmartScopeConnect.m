@@ -17,7 +17,7 @@
 %
 % Tested on Matlab R2014a_64b+Windows8_64b
 
-libPath = 'C:\Program Files (x86)\LabNation\SmartScope\LabNation.DeviceInterface.dll';
+libPath = 'C:\Program Files (x86)\LabNation\SmartScope\DeviceInterface.dll';
 
 if (~exist('asm'))
     asm = NET.addAssembly(libPath);
