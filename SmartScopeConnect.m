@@ -26,10 +26,10 @@ if (~exist('asm'))
 end
 
 %connect to the scope
-devManager = LabNation.DeviceInterface.Devices.DeviceManager()
-devManager.Start(false)
-
 disp ('Searching for SmartScope...')
+devManager = LabNation.DeviceInterface.Devices.DeviceManager();
+devManager.Start(false);
+
 while (~devManager.SmartScopeConnected)
     pause(1);    
 end
@@ -40,9 +40,9 @@ scope = devManager.MainDevice;
 %follow same initialisation script as the ConsoleDemo at https://github.com/labnation/console-demo
 %ideally suited for any signal around 10kHz crossing the 0.5V level
 scope.Running = false;
-scope.CommitSettings()
+scope.CommitSettings();
 
-scope.DataSourceScope.Start()
+scope.DataSourceScope.Start();
 
 %define timebase and trigger position
 scope.AcquisitionLength = 0.001; 
@@ -59,13 +59,13 @@ scope.SetViewPort (0, scope.AcquisitionLength);
 scope.SetVerticalRange (AnalogChannel.ChA, -3, 3);
 scope.SetYOffset (AnalogChannel.ChA, 0);
 scope.SetCoupling (AnalogChannel.ChA, Coupling.DC);
-scope.SetProbeDivision (AnalogChannel.ChA, ProbeDivision.X1);
+AnalogChannel.ChA.SetProbe(LabNation.DeviceInterface.Devices.Probe.DefaultX1Probe);
 
 %define ChannelB input
 scope.SetVerticalRange (AnalogChannel.ChB, -3, 3);
 scope.SetYOffset (AnalogChannel.ChB, 0);
 scope.SetCoupling (AnalogChannel.ChB, Coupling.DC);
-scope.SetProbeDivision (AnalogChannel.ChB, ProbeDivision.X1);
+AnalogChannel.ChB.SetProbe(LabNation.DeviceInterface.Devices.Probe.DefaultX1Probe);
 
 %define trigger
 tv = TriggerValue();
