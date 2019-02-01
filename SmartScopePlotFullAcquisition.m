@@ -16,6 +16,9 @@
 %   to see which parameters are exposed by the most recently acquired
 %   datapackage
 
+import LabNation.DeviceInterface.Devices.*
+import LabNation.DeviceInterface.DataSources.*   
+
 % first start the scope
 scope.Running = true;
 scope.CommitSettings();
