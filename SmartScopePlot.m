@@ -16,6 +16,9 @@
 %   to see which parameters are exposed by the most recently acquired
 %   datapackage
 
+import LabNation.DeviceInterface.Devices.*
+import LabNation.DeviceInterface.DataSources.*   
+
 for i=1:1000
      %get latest ChannelData
      d = scope.DataSourceScope.LatestDataPackage.GetData(ChannelDataSourceScope.Viewport, AnalogChannel.ChA);
